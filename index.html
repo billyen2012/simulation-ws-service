@@ -1,0 +1,34 @@
+<html>
+  <body>
+    socket demonstration
+    <script type="module">
+      import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+      const socket = io();
+      socket.on("message", (message) => {
+        console.log(message);
+        switch (message.type) {
+          case "simulation:started": {
+            /**@type {float}*/
+            const data = message.data;
+            break;
+          }
+          case "simulation:data:raw": {
+            const data = message.data;
+            // data will look like following
+            // [{c1:1.23, c2:-2, c3:8, ..... , c19:1}]
+            break;
+          }
+          // will just use c1's alpha-theta-ratio for demo
+          case "simulation:data:alpha-theta-ratio": {
+            /**@type {boolean}*/
+            const ratio = message.data;
+            break;
+          }
+          default:
+            throw new Error("unknown message type");
+        }
+      });
+      socket.emit("simulation:start");
+    </script>
+  </body>
+</html>
