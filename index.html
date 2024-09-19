@@ -5,10 +5,9 @@
       import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
       const socket = io();
       socket.on("message", (message) => {
-        console.log(message);
         switch (message.type) {
           case "simulation:started": {
-            /**@type {float}*/
+            /**@type {boolean}*/
             const data = message.data;
             break;
           }
@@ -20,7 +19,7 @@
           }
           // will just use c1's alpha-theta-ratio for demo
           case "simulation:data:alpha-theta-ratio": {
-            /**@type {boolean}*/
+            /**@type {float}*/
             const ratio = message.data;
             break;
           }
@@ -28,6 +27,7 @@
             throw new Error("unknown message type");
         }
       });
+      // command to start the emulation
       socket.emit("simulation:start");
     </script>
   </body>
