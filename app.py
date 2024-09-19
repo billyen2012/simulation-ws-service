@@ -8,7 +8,7 @@ from time import sleep
 app = Flask(__name__, template_folder='./')
 app.config["DEBUG"] = True
 app.config['SECRET_KEY'] = '12345678'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/ping')
 def index():
